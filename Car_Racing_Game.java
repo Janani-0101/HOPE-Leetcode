@@ -2,26 +2,35 @@ abstract class Vehicle {
     protected String name;
     protected int speed;
     protected int fuel;
+
     public Vehicle(String name, int speed, int fuel) {
         this.name = name;
         this.speed = speed;
         this.fuel = fuel;
     }
+
     public abstract void accelerate();
     public abstract void brake();
+
     public void showStatus() {
         System.out.println(name + " Speed: " + speed + " Fuel: " + fuel);
     }
 }
+
+// Inheritance + Polymorphism
 class Car extends Vehicle {
 
     public Car(String name, int speed, int fuel) {
         super(name, speed, fuel);
     }
+
+    @Override
     public void accelerate() {
         speed += 10;
         fuel -= 5;
     }
+
+    @Override
     public void brake() {
         speed -= 5;
     }
@@ -46,37 +55,52 @@ interface RaceActions {
     void startRace();
     void endRace();
 }
+
+// Encapsulation
 class Player {
     private String playerName;
     private Vehicle car;
+
     public Player(String playerName, Vehicle car) {
         this.playerName = playerName;
         this.car = car;
     }
+
     public String getPlayerName() {
         return playerName;
     }
+
     public Vehicle getCar() {
         return car;
     }
 }
+
+// Game Controller
 class RaceGame implements RaceActions {
+
     private Player[] players;
+
     public RaceGame(Player[] players) {
         this.players = players;
     }
+
+    @Override
     public void startRace() {
         System.out.println("Race Started!");
 
         for (Player p : players) {
-            p.getCar().accelerate();  
+            p.getCar().accelerate();   // Polymorphism
             p.getCar().showStatus();
         }
     }
+
+    @Override
     public void endRace() {
         System.out.println("Race Finished!");
     }
 }
+
+// Main Class
 public class Main {
     public static void main(String[] args) {
 
@@ -93,5 +117,4 @@ public class Main {
         game.startRace();
         game.endRace();
     }
-  }
 }
